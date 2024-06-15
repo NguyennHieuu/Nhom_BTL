@@ -306,3 +306,6 @@ void changeVac(Vaccine **vaccine, int index, Vaccine *updateVac)
     inputVac(updateVac);
     (*vaccine)[index] = *updateVac;
 }
+
+
+// hihi
