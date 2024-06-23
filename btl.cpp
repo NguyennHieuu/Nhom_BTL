@@ -3,7 +3,7 @@
  * @author Nguyen Trung Hieu (Hieu.NT234009@sis.hust.edu.vn)
  * @brief He thong quan ly trung tam tiem chung
  * @version 1.0
- * @date 2024-06-06
+ * @date 2024-06-23
  * 
  * @copyright Copyright (c) 2024
  * 
@@ -67,7 +67,8 @@ int main() // ham main
 {
     int numofVac; // So luong loai vac xin
     char vacSearch[50]; // Ten loai vac xin tim kiem
-    int choice, continueInput; // bien phuc vu menu lua chon hanh dong
+    int choice; // bien phuc vu menu lua chon hanh dong
+    char continueInput;
     int newAddvac, index1, index2;
     Vaccine updateVac;
     printf("Nhap so luong loai vaccine: ");
@@ -214,7 +215,7 @@ void searchVac(Vaccine vaccine[], int numofVac, char *vacSearch)
     {
         if(strcmp(vaccine[i].vacName, vacSearch) == 0)
         {
-            printf("\nSo thu tu: %d", i); // so thu tu trong mang, thuan tiec cho viec tim kiem vac xin de xoa thong tin phia sau
+            printf("\nSo thu tu: %d", i + 1);
             displayVac(vaccine[i]);
             found = 1;
         }
@@ -290,19 +291,18 @@ void addVac(Vaccine **vaccine, int *numofVac, int newAddvac)
     }
 }
 
-void deleteVac(Vaccine **vaccine, int *numofVac, int index)
+void deleteVac(Vaccine **vaccine, int *numofVac, int stt) // so thu tu cua vac xin
 {
-    *numofVac -= 1;
-    for(int i = index; i < *numofVac - 1; i ++ )
+    for(int i = stt - 1; i < *numofVac - 1; i ++ )
     {
-        (*vaccine)[index] = (*vaccine)[index + 1];
+        (*vaccine)[i] = (*vaccine)[i + 1];
     }
     *vaccine = (Vaccine *)realloc(*vaccine, (*numofVac - 1) * sizeof(Vaccine));
-    *numofVac --;
+    (*numofVac) --;
 }
 
-void changeVac(Vaccine **vaccine, int index, Vaccine *updateVac)
+void changeVac(Vaccine **vaccine, int stt, Vaccine *updateVac)
 {
     inputVac(updateVac);
-    (*vaccine)[index] = *updateVac;
+    (*vaccine)[stt -1] = *updateVac;
 }
