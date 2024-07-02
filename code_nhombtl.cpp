@@ -207,8 +207,15 @@ int main() // ham main
     printf("\n");
     scanf("%d",&a);
     fflush(stdin);
+    TEST1:
+    printf("\nTen tai khoan: "); scanf("%s", nameacc);
+    fflush(stdin);
+    printf("Mat khau: "); scanf("%s", password);
+    if((nameacc=="buitrunghieu"&&password=="buitrunghieu")||(nameacc=="nguyentrunghieu"&&password=="nguyentrunghieu")||(nameacc=="trantrunghieu"&&password=="trantrunghieu")||(nameacc=="vuhoanghiep"&&password=="vuhoanghiep"))
+    {
+        
+    }
 
-    
 
 
 
