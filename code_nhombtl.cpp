@@ -313,12 +313,12 @@ int main() // ham main
                                             inputVC(&Vaccine1[numVC]);
                                             numVC++; 
                                             printf("\nThong tin cac vac xin da nhap ");
-                                            for(int i = 0; i < numVC; i++)
-                                            {
-                                                printf("\nVac xin thu %d: ", i + 1);
-                                                outputVC(Vaccine1[i]);
-                                                printf("\n");
-                                            }
+                                            printf("\n");
+                                        }
+                                        for(int i = 0; i < numVC; i++)
+                                        {
+                                            printf("\nVac xin thu %d: ", i + 1);
+                                            outputVC(Vaccine1[i]);
                                             printf("\n");
                                         }
                                         break;
