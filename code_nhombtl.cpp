@@ -225,7 +225,59 @@ int main() // ham main
 
                 switch(option1)
                 {
-                    case 1: //Benh nhan
+                    case 1:
+                    {
+                    	printf("Nhap so luong benh nhan: ");
+                        scanf("%d",&numOfBn);
+                        clear(); // Xóa bộ đệm sau khi nhập số lượng bệnh nhân
+
+                        // funcion thuc thi nhiem vu
+                        dtCaNhan(infor_cn,infor_yt,numOfBn);  // entry data of patient
+
+                        for(int i=0; i<numOfBn; i++)  // note: chuyển ra hàm
+                        {
+                            if(infor_yt[i].tienTiemChung==1)
+                            {
+                                printf("\nThong tin lich su tiem chung cua benh nhan %d :\n",i+1);
+                                printf(" So luong vaccine da tiem: ");
+                                scanf("%d",&numOfVaccine[i]);  // so luong vaccine cua object i+1
+                                clear();
+                                for(int j=0; j<numOfVaccine[i] ; j++)
+                                {
+                                    int temp=0;
+                                    printf("\n Vaccien thu %d\n",j+1);
+                                    printf("  Ten vaccine la: ");
+                                    fgets(lichSuTiemChung[j].nameOfVaccine,99,stdin);
+                                    strtok(lichSuTiemChung[j].nameOfVaccine, "\n");
+
+                                    do{		
+		                            printf("  Thoi gian tiem (dd/mm/yyyy): ");
+                                    scanf("%d/%d/%d",&lichSuTiemChung[j].dayT,&lichSuTiemChung[j].monthT,&lichSuTiemChung[j].yearT);
+                                    clear();
+	            	                if( 0>=lichSuTiemChung[j].dayT || 31<lichSuTiemChung[j].dayT || lichSuTiemChung[j].monthT<=0 || lichSuTiemChung[j].monthT >12 || lichSuTiemChung[j].yearT > 2024 || lichSuTiemChung[j].yearT < infor_cn[i].year)
+		                            {
+			                            printf("khong hop le, nhap lai ngay thang nam!! \n");
+		                            }
+		                            else temp =1;
+		
+	                                }while(temp==0);
+
+                
+                                    printf("  Dia diem tiem: ");
+                                    fgets(lichSuTiemChung[j].DDT,99,stdin);
+                                    strtok(lichSuTiemChung[j].DDT,"\n");
+                                }
+            
+                            }
+                            else    printf("Benh nhan %d khong co lich su tiem chung !",i+1);
+                        }
+
+                        dtLichTiemChung(infor_ltc,numOfBn);   // entry data of lich tiem chung 
+
+                        printf("\nHien thi thong tin da nhap cua cac benh nhan!\n");
+                        displayCaNhan(infor_cn,infor_yt,lichSuTiemChung,infor_ltc,numOfBn,numOfVaccine);
+                        if_bn(infor_cn,infor_yt,lichSuTiemChung,infor_ltc,numOfBn,numOfVaccine);
+					}
                     case 2:
                     {
                         printf("\nBan la: ");
@@ -349,7 +401,10 @@ int main() // ham main
     }
 }
     
-
+free(infor_cn);
+free(infor_yt);
+free(infor_ltc);
+return 0;
 
 
 
