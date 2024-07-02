@@ -178,7 +178,7 @@ int main() // ham main
     char nameacc[10];
     char password[10];
     inforBN* BenhNhan = NULL;
-    inforNX* Vaccine = NULL;
+    inforNX* Vaccine1 = NULL;
     int numBN = 0, numVC = 0;
     
     /* PHAN BENH NHAN */
@@ -276,7 +276,10 @@ int main() // ham main
 
                         printf("\nHien thi thong tin da nhap cua cac benh nhan!\n");
                         displayCaNhan(infor_cn,infor_yt,lichSuTiemChung,infor_ltc,numOfBn,numOfVaccine);
-                        
+                        free(infor_cn);
+                        free(infor_yt);
+                        free(infor_ltc);
+                        break;
 					}
                     case 2:
                     {
@@ -303,11 +306,11 @@ int main() // ham main
                                     {
                                         printf("Tong so loai vaccine muon nhap kho: ");
                                         scanf("%d", &p);
-                                        Vaccine = (inforNX *)realloc(Vaccine, (numVC + p) * sizeof(inforNX));
+                                        Vaccine1 = (inforNX *)realloc(Vaccine1, (numVC + p) * sizeof(inforNX));
                                         for(int i = 0; i < p; i++)
                                         {
                                             printf("Nhap thong tin loai vaccine thu %d: ", numVC + 1);
-                                            inputVC(&Vaccine[numVC]);
+                                            inputVC(&Vaccine1[numVC]);
                                             numVC++; 
                                             printf("\n");
                                         }
@@ -319,20 +322,18 @@ int main() // ham main
                                         printf("\nNhap ten vaccine can xoa: ");
                                         fflush(stdin);
                                         gets(tenVC);
-                                        deleteVC(Vaccine, &numVC, tenVC);
+                                        deleteVC(Vaccine1, &numVC, tenVC);
                                         break;
                                     }
                                     case 3:
                                     {
-                                        free(Vaccine);
+                                        free(Vaccine1);
                                         printf("Chuc ban mot ngay tot lanh.");
-                                        return 0;
+                                        break;
                                     }
                                 }
+                            break;
                             }
-                            free(infor_cn);
-                            free(infor_yt);
-                            free(infor_ltc);
                             case 2:
                             {
                                 printf("Nhap so luong loai vaccine: ");
@@ -395,11 +396,13 @@ int main() // ham main
                                     scanf("%c", &continueInput);
                                 } while (continueInput == 'y' || continueInput == 'Y');
                                 free(vaccine);
+                            break;
                             }
                             default:
                                 printf("\nKhong hop le. Vui long nhap lai");
                                 continue;
                         }
+                    break;
                     }
                     default:
                         printf("\nKhong hop le. Vui long nhap lai");
@@ -415,9 +418,6 @@ int main() // ham main
     return 0;
 }
     
-
-
-
 /* DINH NGHIA CAC HAM DA SU DUNG */
 
 /* PHAN NHAN VIEN */
