@@ -213,7 +213,7 @@ int main() // ham main
         printf("\nTen tai khoan: "); scanf("%s", nameacc);
         fflush(stdin);
         printf("Mat khau: "); scanf("%s", password);
-        if ((strcmp(nameacc, "buitrunghieu") == 0 && strcmp(password, "buitrunghieu") == 0) || ((strcmp(nameacc, "nguyentrunghieu") == 0 && strcmp(password, "nguyentrunghieu") == 0) || ((strcmp(nameacc, "trantrunghieu") == 0 && strcmp(password, "trantrunghieu") == 0) || ((strcmp(nameacc, "vuhoanghiep") == 0 && strcmp(password, "vuhoanghiep") == 0)))))
+        if ((strcmp(nameacc, "baitaplon") == 0 && strcmp(password, "baitaplon") == 0))
         {
             while(1)
             {
