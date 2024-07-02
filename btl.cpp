@@ -43,7 +43,7 @@ void inputVac(Vaccine *vaccine);
 void displayVac(Vaccine vaccine);
 
 // Ham tim kiem  va hien thi vac xin qua ten vac xin
-void searchVac(Vaccine vaccine[], int numofVac, char *vacSearch); //numofVac la so loai vac xin; vacSearch la ten loai vac xin muon tim kiem
+void searchVac(Vaccine vaccine[], int numofVac, char vacSearch[]); //numofVac la so loai vac xin; vacSearch la ten loai vac xin muon tim kiem
 
 // Ham sap xep va hien thi nhung loai vac xin theo han su dung
 void searchExpiry(Vaccine vaccine[], int numofVac);
@@ -208,7 +208,7 @@ void displayVac(Vaccine vaccine)
     printf("\nHan su dung: %d-%d-%d", vaccine.expiryDate.day, vaccine.expiryDate.month, vaccine.expiryDate.year);
 }
 
-void searchVac(Vaccine vaccine[], int numofVac, char *vacSearch)
+void searchVac(Vaccine vaccine[], int numofVac, char vacSearch[])
 {
     int found = 0;
     for(int i = 0; i < numofVac; i ++)
