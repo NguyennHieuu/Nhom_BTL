@@ -312,6 +312,13 @@ int main() // ham main
                                             printf("Nhap thong tin loai vaccine thu %d: ", numVC + 1);
                                             inputVC(&Vaccine1[numVC]);
                                             numVC++; 
+                                            printf("\nThong tin cac vac xin da nhap ");
+                                            for(int i = 0; i < numVC; i++)
+                                            {
+                                                printf("\nVac xin thu %d: ", i + 1);
+                                                outputVC(Vaccine1[i]);
+                                                printf("\n");
+                                            }
                                             printf("\n");
                                         }
                                         break;
@@ -409,6 +416,11 @@ int main() // ham main
                         continue;
                 }
             }
+        }
+        else
+        {
+            printf("\nTen tai khoan hoac mat khau ban vua nhap khong dung. Vui long ban nhap lai!");
+            goto TEST1;
         }
     }
     if(a == 2)
