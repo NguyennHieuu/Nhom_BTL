@@ -207,14 +207,54 @@ int main() // ham main
     printf("\n");
     scanf("%d",&a);
     fflush(stdin);
-    TEST1:
-    printf("\nTen tai khoan: "); scanf("%s", nameacc);
-    fflush(stdin);
-    printf("Mat khau: "); scanf("%s", password);
-    if((nameacc=="buitrunghieu"&&password=="buitrunghieu")||(nameacc=="nguyentrunghieu"&&password=="nguyentrunghieu")||(nameacc=="trantrunghieu"&&password=="trantrunghieu")||(nameacc=="vuhoanghiep"&&password=="vuhoanghiep"))
+    if (a == 1)
     {
-        
+        TEST1:
+        printf("\nTen tai khoan: "); scanf("%s", nameacc);
+        fflush(stdin);
+        printf("Mat khau: "); scanf("%s", password);
+        if((nameacc=="buitrunghieu"&&password=="buitrunghieu")||(nameacc=="nguyentrunghieu"&&password=="nguyentrunghieu")||(nameacc=="trantrunghieu"&&password=="trantrunghieu")||(nameacc=="vuhoanghiep"&&password=="vuhoanghiep"))
+        {
+            while(1)
+            {
+                printf("\nDua ra lua chon cua ban: ");
+                printf("\n1. Lien quan den benh nhan");
+                printf("\n2. Lien quan den vac xin");
+                printf("\nVui long nhap lua chon cua ban: ");
+                scanf("%d", &option1);
+
+                switch(option1)
+                {
+                    case 1: //Benh nhan
+                    case 2:
+                    {
+                        printf("\nBan la: ");
+                        printf("\n1. Nhan vien nhap kho vac xin");
+                        printf("\n2. Nhan vien y te");
+                        printf("\nVui long nhap lua chon cua ban");
+                        scanf("%d", &option2);
+
+                        switch(option2)
+                        {
+                            case 1:
+                            {
+                                printf("\nBan muon lam gi?");
+                                printf("\n1. Nhap thong tin vaccine");
+                                printf("\n2. Xoa thong tin vaccine");
+                                printf("\n3. Thoat");
+                                printf("\nVui long nhap lua chon cua ban: ");
+                                scanf("%d", &option3); 
+
+                                
+                            }
+                            case 2: // Nguyen Hieu
+                        }
+                    }
+                }
+            }
+        }
     }
+    
 
 
 
