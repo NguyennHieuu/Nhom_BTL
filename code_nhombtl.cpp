@@ -295,8 +295,9 @@ int main() // ham main
                             {
                                 printf("\nBan muon lam gi?");
                                 printf("\n1. Nhap thong tin vaccine");
-                                printf("\n2. Xoa thong tin vaccine");
-                                printf("\n3. Thoat");
+                                printf("\n2. Hien thi thong tin vaccine");
+                                printf("\n3. Xoa thong tin vaccine");
+                                printf("\n4. Thoat");
                                 printf("\nVui long nhap lua chon cua ban: ");
                                 scanf("%d", &option3); 
 
@@ -315,6 +316,10 @@ int main() // ham main
                                             printf("\nThong tin cac vac xin da nhap ");
                                             printf("\n");
                                         }
+                                        break;
+                                    }
+                                    case 2:
+                                    {
                                         for(int i = 0; i < numVC; i++)
                                         {
                                             printf("\nVac xin thu %d: ", i + 1);
@@ -323,7 +328,7 @@ int main() // ham main
                                         }
                                         break;
                                     }
-                                    case 2:
+                                    case 3:
                                     {
                                         char tenVC[20];
                                         printf("\nNhap ten vaccine can xoa: ");
@@ -332,7 +337,7 @@ int main() // ham main
                                         deleteVC(Vaccine1, &numVC, tenVC);
                                         break;
                                     }
-                                    case 3:
+                                    case 4:
                                     {
                                         free(Vaccine1);
                                         printf("Chuc ban mot ngay tot lanh.");
