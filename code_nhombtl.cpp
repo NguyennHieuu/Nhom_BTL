@@ -461,7 +461,7 @@ void inputVC(inforNX *vc)
     printf("\nNhap ten vaccine: ");
     gets(vc->TenVC);
     fflush(stdin);
-    printf("Nhap so luong vaccine nhap: ");
+    printf("Nhap so luong vaccine nhap (lieu): ");
     scanf("%d",&vc->countVC);
     fflush(stdin);
     printf("Nhap ngay nhap vaccine: ");
