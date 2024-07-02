@@ -280,6 +280,7 @@ int main() // ham main
                         free(infor_cn);
                         free(infor_yt);
                         free(infor_ltc);
+                        break;
 					}
                     case 2:
                     {
@@ -329,7 +330,7 @@ int main() // ham main
                                     {
                                         free(Vaccine1);
                                         printf("Chuc ban mot ngay tot lanh.");
-                                        return 0;
+                                        break;
                                     }
                                 }
                             }
@@ -400,6 +401,7 @@ int main() // ham main
                             default:
                                 printf("\nKhong hop le. Vui long nhap lai");
                                 continue;
+                        break;
                         }
                     }
                     default:
