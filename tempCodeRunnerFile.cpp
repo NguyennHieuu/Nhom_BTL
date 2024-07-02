@@ -1,0 +1,2 @@
+
+void inputBN(inforBN *bn);
