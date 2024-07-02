@@ -213,7 +213,7 @@ int main() // ham main
         printf("\nTen tai khoan: "); scanf("%s", nameacc);
         fflush(stdin);
         printf("Mat khau: "); scanf("%s", password);
-        if ((strcmp(nameacc, "buitrunghieu") == 0 && strcmp(password, "buitrunghieu") == 0) || ((strcmp(nameacc, "nguyentrunghieu") == 0 && strcmp(password, "nguyentrunghieu") == 0) || ((strcmp(nameacc, "trantrunghieu") == 0 && strcmp(password, "trantrunghieu") == 0) || ((strcmp(nameacc, "vuhoanghiep") == 0 && strcmp(password, "vuhoanghiep") == 0)))))
+        if ((strcmp(nameacc, "baitaplon") == 0 && strcmp(password, "baitaplon") == 0))
         {
             if(1)
             {
@@ -312,6 +312,13 @@ int main() // ham main
                                             printf("Nhap thong tin loai vaccine thu %d: ", numVC + 1);
                                             inputVC(&Vaccine1[numVC]);
                                             numVC++; 
+                                            printf("\nThong tin cac vac xin da nhap ");
+                                            printf("\n");
+                                        }
+                                        for(int i = 0; i < numVC; i++)
+                                        {
+                                            printf("\nVac xin thu %d: ", i + 1);
+                                            outputVC(Vaccine1[i]);
                                             printf("\n");
                                         }
                                         break;
@@ -410,6 +417,11 @@ int main() // ham main
                 }
             }
         }
+        else
+        {
+            printf("\nTen tai khoan hoac mat khau ban vua nhap khong dung. Vui long ban nhap lai!");
+            goto TEST1;
+        }
     }
     if(a == 2)
     {
@@ -449,7 +461,7 @@ void inputVC(inforNX *vc)
     printf("\nNhap ten vaccine: ");
     gets(vc->TenVC);
     fflush(stdin);
-    printf("Nhap so luong vaccine nhap: ");
+    printf("Nhap so luong vaccine nhap (lieu): ");
     scanf("%d",&vc->countVC);
     fflush(stdin);
     printf("Nhap ngay nhap vaccine: ");
