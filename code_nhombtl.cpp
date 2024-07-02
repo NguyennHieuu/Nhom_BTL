@@ -396,8 +396,14 @@ int main() // ham main
                                 } while (continueInput == 'y' || continueInput == 'Y');
                                 free(vaccine);
                             }
+                            default:
+                                printf("\nKhong hop le. Vui long nhap lai");
+                                continue;
                         }
                     }
+                    default:
+                        printf("\nKhong hop le. Vui long nhap lai");
+                        continue;
                 }
             }
         }
