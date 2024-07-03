@@ -334,6 +334,7 @@ int main() // ham main
                 				free(infor_cn);
                 				free(infor_yt);
                 				free(infor_ltc);
+                                exit(0);
             				default:
                 			printf("Chon sai, vui long chon lai!\n");
         					}
