@@ -210,7 +210,7 @@ int main() // ham main
     printf("Mat khau: "); scanf("%s", password);
     if ((strcmp(nameacc, "baitaplon") == 0 && strcmp(password, "baitaplon") == 0))
     {
-        if(1)
+        while(1)
         {
             printf("\nDua ra lua chon cua ban: ");
             printf("\n1. Lien quan den benh nhan");
