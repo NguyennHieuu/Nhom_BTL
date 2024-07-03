@@ -21,7 +21,9 @@
 /* PHAN NHAN VIEN NHAP KHO VAC XIN */
 typedef struct
 {
-    char date[15];
+    int day;
+	int month;
+	int year;
 } Date1;
 
 typedef struct
@@ -36,7 +38,7 @@ typedef struct
 {
     char TenVC[20];
     int  countVC;
-    Date1 date;
+    Date1 birth;
 } inforNX;
 
 /* PHAN BENH NHAN */
@@ -503,28 +505,6 @@ int main() // ham main
 /* DINH NGHIA CAC HAM DA SU DUNG */
 
 /* PHAN NHAN VIEN NHAP KHO VAC XIN */
-void inputBN(inforBN *bn)
-{
-    printf("\nNhap ma benh nhan: ");
-    scanf("%d",&bn->ID);
-    fflush(stdin);
-    printf("Nhap ten benh nhan: ");
-    gets(bn->Ten);
-    printf("Nhap ngay sinh: ");
-    scanf("%s",bn->birth.date);
-    fflush(stdin);
-    printf("Nhap que quan: ");
-    gets(bn->home);
-}
-
-void outputBN(inforBN bn)
-{
-    printf("\n  -Ma benh nhan: %d",bn.ID);
-    printf("\n  -Ten benh nhan: %s",bn.Ten);
-    printf("\n  -Ngay sinh: %s",bn.birth.date);
-    printf("\n  -Que quan: %s",bn.home);
-}
-
 void inputVC(inforNX *vc)
 {
     fflush(stdin);
@@ -534,46 +514,24 @@ void inputVC(inforNX *vc)
     printf("Nhap so luong vaccine nhap (lieu): ");
     scanf("%d",&vc->countVC);
     fflush(stdin);
-    printf("Nhap ngay nhap vaccine: ");
-    scanf("%s",vc->date.date);
+    int t = 0;
+    do{
+    printf("Nhap ngay sinh(DD MM YYYY): ");
+    scanf("%d%d%d",&vc->birth.day,&vc->birth.month,&vc->birth.year);
+    fflush(stdin);
+    if( 0>=vc->birth.day || 31<vc->birth.day || vc->birth.month<=0 || vc->birth.month >12 || vc->birth.year > 2024 )
+	{
+		printf("Ngay nhap vaccine cua ban khong hop le, hay nhap lai ngay thang nam!! \n");
+	}
+	else t =1;
+		
+	}while(t==0);
 }
-
 void outputVC(inforNX vc)
 {
 	printf("\n  -Ten vaccine             : %s", vc.TenVC);
 	printf("\n  -So luong vaccine da nhap: %d lieu", vc.countVC);
-	printf("\n  -Ngay nhap vaccine       : %s", vc.date);
-}
-
-void deleteBN(inforBN *bn, int *n, int id)
-{
-    int found = 0;
-    for(int i = 0; i < *n; i++)
-    {
-        if(bn[i].ID == id)
-        {
-            found = 1;
-            for(int j = i; j < *n - 1; j++)
-            {
-                bn[j] = bn[j + 1];
-            }
-            (*n)--;
-            break;
-        }
-    }
-    if(found)
-    {
-        printf("\nBenh nhan voi ma %d da bi xoa.\n", id);
-        printf("\nDanh sach benh nhan hien tai la: ");
-        for(int i=0;i<*n;i++){
-        	printf("\nBenh nhan thu %d", i+1);
-        	outputBN(bn[i]);
-		}
-    }
-    else
-    {
-        printf("\nKhong tim thay benh nhan voi ma %d.\n", id);
-    }
+	printf("\n  -Ngay nhap vaccine       : %d/%d/%d", vc.birth.day, vc.birth.month, vc.birth.year);
 }
 
 void deleteVC(inforNX *vc, int *n, char *tenVC)
