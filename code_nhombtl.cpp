@@ -347,7 +347,7 @@ int main() // ham main
                     printf("\nBan la: ");
                     printf("\n1. Nhan vien nhap kho vac xin");
                     printf("\n2. Nhan vien y te");
-                    printf("\nVui long nhap lua chon cua ban");
+                    printf("\nVui long nhap lua chon cua ban: ");
                     scanf("%d", &option2);
 
                     switch(option2)
