@@ -365,7 +365,7 @@ int main() // ham main
                             {
                                 case 1:
                                 {
-                                    printf("Tong so loai vaccine muon nhap kho: ");
+                                    printf("Tong so loai vaccine muon nhap kho (them): ");
                                     scanf("%d", &p);
                                     Vaccine1 = (inforNX *)realloc(Vaccine1, (numVC + p) * sizeof(inforNX));
                                     for(int i = 0; i < p; i++)
