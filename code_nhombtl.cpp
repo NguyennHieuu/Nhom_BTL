@@ -124,6 +124,23 @@ int reset()    // reset dem ve 0
     dem=0;
     return dem;
 }
+
+// kiem tra ngay thang nam
+int validateDate(int day, int month, int year) {
+    if (year > 2024) return 0;
+    if (month < 1 || month > 12) return 0;
+    if (day < 1 || day > 31) return 0;
+    if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) return 0;
+    if (month == 2) {
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+            if (day > 29) return 0;
+        } else {
+            if (day > 28) return 0;
+        }
+    }
+    return 1;
+}
+
 // Khai bao ham nhap data thong tin ca nhan va thong tin y te 
 void dtCaNhan(caNhan* , yTe* , int);  
 
@@ -595,54 +612,52 @@ void deleteVC(inforNX *vc, int *n, char *tenVC)
 
 /* PHAN BENH NHAN */
 // Định nghĩa hàm nhập thông tin cá nhân
-void dtCaNhan(caNhan* infor_cn, yTe* infor_yt, int numOfBn)
-{
-    for (int i = 0; i < numOfBn; i++)
-    {
-        int temp = 0;
+void dtCaNhan(caNhan* infor_cn, yTe* infor_yt, int numOfBn) {
+    for (int i = 0; i < numOfBn; i++) {
+        int validDate = 0;
         printf("Benh nhan %d\n", i + 1);
 
         printf(" Tai khoan: ");
-        fgets(infor_cn[i].tk, 99, stdin);
+        fgets(infor_cn[i].tk, sizeof(infor_cn[i].tk), stdin);
         strtok(infor_cn[i].tk, "\n");
 
         printf(" Mat khau: ");
-        fgets(infor_cn[i].mk, 99, stdin);
+        fgets(infor_cn[i].mk, sizeof(infor_cn[i].mk), stdin);
         strtok(infor_cn[i].mk, "\n");
 
         printf(" Ten benh nhan: ");
-        fgets(infor_cn[i].name, 99, stdin);
+        fgets(infor_cn[i].name, sizeof(infor_cn[i].name), stdin);
         strtok(infor_cn[i].name, "\n");
 
         do {
             printf(" Ngay thang nam sinh (dd/mm/yyyy): ");
             scanf("%d/%d/%d", &infor_cn[i].day, &infor_cn[i].month, &infor_cn[i].year);
             clear();
-            if (0 >= infor_cn[i].day || 31 < infor_cn[i].day || infor_cn[i].month <= 0 || infor_cn[i].month > 12 || infor_cn[i].year > 2024)
-            {
+            if (!validateDate(infor_cn[i].day, infor_cn[i].month, infor_cn[i].year)) {
                 printf("Khong hop le, nhap lai ngay thang nam!! \n");
+            } else {
+                validDate = 1;
             }
-            else temp = 1;
-
-        } while (temp == 0);
+        } while (!validDate);
 
         printf(" Gioi tinh: ");
-        fgets(infor_cn[i].sex, 99, stdin);
+        fgets(infor_cn[i].sex, sizeof(infor_cn[i].sex), stdin);
         strtok(infor_cn[i].sex, "\n");
 
         printf(" Dia chi thuong tru: ");
-        fgets(infor_cn[i].address, 99, stdin);
+        fgets(infor_cn[i].address, sizeof(infor_cn[i].address), stdin);
         strtok(infor_cn[i].address, "\n");
 
-        infor_cn[i].ID = tangDem();
-        printf(" ID benh nhan: %d\n", infor_cn[i].ID);
+        printf(" ID ca nhan: ");
+        scanf("%d", &infor_cn[i].ID);
+        clear();
 
         printf(" So dien thoai: ");
-        fgets(infor_cn[i].numPhone, 99, stdin);
+        fgets(infor_cn[i].numPhone, sizeof(infor_cn[i].numPhone), stdin);
         strtok(infor_cn[i].numPhone, "\n");
 
         printf(" Tien su benh ly cua benh nhan: ");
-        fgets(infor_yt[i].tienBenhLy, 99, stdin);
+        fgets(infor_yt[i].tienBenhLy, sizeof(infor_yt[i].tienBenhLy), stdin);
         strtok(infor_yt[i].tienBenhLy, "\n");
 
         printf(" Da tiem chung hay chua? (0 -> Chua; 1 -> Da): ");
@@ -821,7 +836,6 @@ void addPatient(caNhan* infor_cn, yTe* infor_yt, LichSuTiemChung* lichSuTiemChun
 
     *numOfBn = new_numOfBn;
 }
-
 
 /* PHAN VACCINE CUA NHAN VIEN Y TE */
 int validDate(Date date)
