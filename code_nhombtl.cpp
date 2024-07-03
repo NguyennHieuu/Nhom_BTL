@@ -353,61 +353,64 @@ int main() // ham main
                     {
                         case 1:
                         {
-                            printf("\nBan muon lam gi?");
-                            printf("\n1. Nhap thong tin vaccine, them thong tin vaccine");
-                            printf("\n2. Hien thi thong tin vaccine");
-                            printf("\n3. Xoa thong tin vaccine");
-                            printf("\n4. Thoat");
-                            printf("\nVui long nhap lua chon cua ban: ");
-                            scanf("%d", &option3); 
-
-                            switch(option3)
+                            while(1)
                             {
-                                case 1:
-                                {
-                                    printf("Tong so loai vaccine muon nhap kho (them): ");
-                                    scanf("%d", &p);
-                                    Vaccine1 = (inforNX *)realloc(Vaccine1, (numVC + p) * sizeof(inforNX));
-                                    for(int i = 0; i < p; i++)
-                                    {
-                                        printf("Nhap thong tin loai vaccine thu %d: ", numVC + 1);
-                                        inputVC(&Vaccine1[numVC]);
-                                        numVC++; 
-                                        printf("\n");
-                                    }
-                                    break;
-                                }
-                                case 2:
-                                {
-                                    printf("\nThong tin cac vac xin da nhap: ");
-                                    for(int i = 0; i < numVC; i++)
-                                    {
-                                        printf("\nVac xin thu %d: ", i + 1);
-                                        outputVC(Vaccine1[i]);
-                                        printf("\n");
-                                    }
-                                    for(int i=0; i<numVC; i++)
-                                    {
-                    	                s+=Vaccine1[i].countVC;
-                                    }
-                                    printf("Tong so lieu vaccine da nhap kho: %d lieu ",s);
+                                printf("\nBan muon lam gi?");
+                                printf("\n1. Nhap thong tin vaccine, them thong tin vaccine");
+                                printf("\n2. Hien thi thong tin vaccine");
+                                printf("\n3. Xoa thong tin vaccine");
+                                printf("\n4. Thoat");
+                                printf("\nVui long nhap lua chon cua ban: ");
+                                scanf("%d", &option3); 
 
-                                    break;
-                                    }
-                                case 3:
+                                switch(option3)
                                 {
-                                    char tenVC[20];
-                                    printf("\nNhap ten vaccine can xoa: ");
-                                    fflush(stdin);
-                                    gets(tenVC);
-                                    deleteVC(Vaccine1, &numVC, tenVC);
-                                    break;
+                                    case 1:
+                                    {
+                                        printf("Tong so loai vaccine muon nhap kho (them): ");
+                                        scanf("%d", &p);
+                                        Vaccine1 = (inforNX *)realloc(Vaccine1, (numVC + p) * sizeof(inforNX));
+                                        for(int i = 0; i < p; i++)
+                                        {
+                                            printf("Nhap thong tin loai vaccine thu %d: ", numVC + 1);
+                                            inputVC(&Vaccine1[numVC]);
+                                            numVC++; 
+                                            printf("\n");
+                                        }
+                                        break;
                                     }
-                                case 4:
-                                {
-                                    free(Vaccine1);
-                                    printf("Chuc ban mot ngay tot lanh.");
-                                    break;
+                                    case 2:
+                                    {
+                                        printf("\nThong tin cac vac xin da nhap: ");
+                                        for(int i = 0; i < numVC; i++)
+                                        {
+                                            printf("\nVac xin thu %d: ", i + 1);
+                                            outputVC(Vaccine1[i]);
+                                            printf("\n");
+                                        }
+                                        for(int i=0; i<numVC; i++)
+                                        {
+                    	                    s+=Vaccine1[i].countVC;
+                                        }
+                                        printf("Tong so lieu vaccine da nhap kho: %d lieu ",s);
+
+                                        break;
+                                    }
+                                    case 3:
+                                    {
+                                        char tenVC[20];
+                                        printf("\nNhap ten vaccine can xoa: ");
+                                        fflush(stdin);
+                                        gets(tenVC);
+                                        deleteVC(Vaccine1, &numVC, tenVC);
+                                        break;
+                                    }
+                                    case 4:
+                                    {
+                                        free(Vaccine1);
+                                        printf("Chuc ban mot ngay tot lanh.");
+                                        break;
+                                    }
                                 }
                             }
                         break;
