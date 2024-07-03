@@ -100,11 +100,8 @@ typedef struct
 /* KHAI BAO CAC HAM SE SU DUNG */
 
 /* PHAN NHAN VIEN NHAP KHO VAC XIN */
-void inputBN(inforBN *bn);
-void outputBN(inforBN bn);
 void inputVC(inforNX *vc);
 void outputVC(inforNX vc);
-void deleteBN(inforBN *bn, int *n, int id);
 void deleteVC(inforNX *vc, int *n, char *tenVC);
 
 /* PHAN BENH NHAN */
