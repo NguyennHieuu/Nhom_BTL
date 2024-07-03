@@ -349,8 +349,6 @@ int main() // ham main
                             {
                                 case 1:
                                 {
-                                    
-
                                     printf("Tong so loai vaccine muon nhap kho: ");
                                     scanf("%d", &p);
                                     Vaccine1 = (inforNX *)realloc(Vaccine1, (numVC + p) * sizeof(inforNX));
@@ -372,6 +370,12 @@ int main() // ham main
                                         outputVC(Vaccine1[i]);
                                         printf("\n");
                                     }
+                                    for(int i=0; i<numVC; i++)
+                                    {
+                    	                s+=Vaccine1[i].countVC;
+                                    }
+                                    printf("Tong so lieu vaccine da nhap kho: %d lieu ",s);
+
                                     break;
                                     }
                                 case 3:
