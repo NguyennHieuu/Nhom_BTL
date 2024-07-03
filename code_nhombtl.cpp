@@ -354,7 +354,7 @@ int main() // ham main
                         case 1:
                         {
                             printf("\nBan muon lam gi?");
-                            printf("\n1. Nhap thong tin vaccine");
+                            printf("\n1. Nhap thong tin vaccine, them thong tin vaccine");
                             printf("\n2. Hien thi thong tin vaccine");
                             printf("\n3. Xoa thong tin vaccine");
                             printf("\n4. Thoat");
@@ -513,7 +513,7 @@ void inputVC(inforNX *vc)
     fflush(stdin);
     int t = 0;
     do{
-    printf("Nhap ngay sinh(DD MM YYYY): ");
+    printf("Nhap ngay nhap kho(DD MM YYYY): ");
     scanf("%d%d%d",&vc->birth.day,&vc->birth.month,&vc->birth.year);
     fflush(stdin);
     if( 0>=vc->birth.day || 31<vc->birth.day || vc->birth.month<=0 || vc->birth.month >12 || vc->birth.year > 2024 )
