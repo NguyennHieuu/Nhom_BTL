@@ -1,9 +1,9 @@
 /**
  * @file code_nhombtl.cpp
- * @author Nguyen Trung Hieu (20234009)
- *         Vu Hoang Hiep (20234005)
- *         Bui Trung Hieu (20234006)
- *         Tran Trung Hieu (20234010)
+ * @author Nguyen Trung Hieu (Hieu.NT234009@sis.hust.edu.vn)
+ *         Vu Hoang Hiep (Hiep.VH234005@sis.hust.edu.vn)
+ *         Bui Trung Hieu (Hieu.BT234006@sis.hust.edu.vn)
+ *         Tran Trung Hieu (Hieu.TT234010@sis.hust.edu.vn)
  * @brief He thong quan ly tiem chung
  * @version 1.0
  * @date 2024-07-02
@@ -75,7 +75,7 @@ typedef struct
     char nhacNho[1000]; // Nhac nho ve cac mui tiem sap den han
 }lichTiemChung;
 
-/* PHAN NHAN VIEN Y TE */
+/* PHAN VACCINE CUA NHAN VIEN Y TE */
 /* Khai bao struct cho Date */
 typedef struct
 {
@@ -133,11 +133,18 @@ void dtLichTiemChung(lichTiemChung* , int);
 // display funcions:
 
 // Hien thi thong tin ca nhan
-void displayCaNhan(caNhan*,yTe*,LichSuTiemChung*,lichTiemChung* ,int,int*);  // use  this funcion to display all information
+void displayCaNhan(caNhan*,yTe*,LichSuTiemChung*,lichTiemChung* ,int,int*);  
 
-void if_bn(caNhan*,yTe*,LichSuTiemChung*,lichTiemChung* ,int,int*);  // tra cuu thong tin benh nhan
+// tra cuu thong tin benh nhan
+void if_bn(caNhan*,yTe*,LichSuTiemChung*,lichTiemChung* ,int,int*);  
 
-/* PHAN NHAN VIEN Y TE */
+// Xóa thông tin bệnh nhân
+void deletePatient(caNhan*, yTe*, LichSuTiemChung*, lichTiemChung*, int*, int*);
+
+// Thêm bệnh nhân mới
+void addPatient(caNhan*, yTe*, LichSuTiemChung*, lichTiemChung*, int*, int*);
+
+/* PHAN VACCINE CUA NHAN VIEN Y TE */
 // Ham kiem tra tinh hop le cua ngay thang nam nhap vao
 int validDate(Date date);
 
@@ -173,7 +180,8 @@ int main() // ham main
     /* KHAI BAO BIEN SU DUNG TRONG HAM MAIN */
 
     /* PHAN NHAN VIEN (CHUNG) & NHAN VIEN NHAP KHO VAC XIN */
-    int option1, option2, option3, m, p, a;
+    int option1, option2, option3, m, p;
+    int s = 0;
     //char position[10];
     char nameacc[10];
     char password[10];
@@ -190,7 +198,7 @@ int main() // ham main
     yTe* infor_yt;  // khai bao con tro kieu yTe
     lichTiemChung* infor_ltc;
 
-    /* PHAN NHAN VIEN Y TE */
+    /* PHAN VACCINE CUA NHAN VIEN Y TE */
     int numofVac; // So luong loai vac xin
     char vacSearch[50]; // Ten loai vac xin tim kiem
     int choice; // bien phuc vu menu lua chon hanh dong
@@ -222,61 +230,101 @@ int main() // ham main
             switch(option1)
             {
                 case 1:
-                {
-                    printf("Nhap so luong benh nhan: ");
-                    scanf("%d",&numOfBn);
-                    clear(); // Xóa bộ đệm sau khi nhập số lượng bệnh nhân
-
-                    // funcion thuc thi nhiem vu
-                    dtCaNhan(infor_cn,infor_yt,numOfBn);  // entry data of patient
-
-                    for(int i=0; i<numOfBn; i++)  // note: chuyển ra hàm
                     {
-                        if(infor_yt[i].tienTiemChung==1)
-                        {
-                            printf("\nThong tin lich su tiem chung cua benh nhan %d :\n",i+1);
-                            printf(" So luong vaccine da tiem: ");
-                            scanf("%d",&numOfVaccine[i]);  // so luong vaccine cua object i+1
-                            clear();
-                            for(int j=0; j<numOfVaccine[i] ; j++)
-                            {
-                                int temp=0;
-                                printf("\n Vaccien thu %d\n",j+1);
-                                printf("  Ten vaccine la: ");
-                                fgets(lichSuTiemChung[j].nameOfVaccine,99,stdin);
-                                strtok(lichSuTiemChung[j].nameOfVaccine, "\n");
+                    	printf("______THONG TIN LIEN QUAN DEN BENH NHAN______\n");
+                    	printf("Nhap so luong benh nhan: ");
+    					scanf("%d", &numOfBn);
+    					clear(); // Xóa bộ đệm sau khi nhập số lượng bệnh nhân
 
-                                do{		
-		                            printf("  Thoi gian tiem (dd/mm/yyyy): ");
-                                    scanf("%d/%d/%d",&lichSuTiemChung[j].dayT,&lichSuTiemChung[j].monthT,&lichSuTiemChung[j].yearT);
-                                    clear();
-	            	                if( 0>=lichSuTiemChung[j].dayT || 31<lichSuTiemChung[j].dayT || lichSuTiemChung[j].monthT<=0 || lichSuTiemChung[j].monthT >12 || lichSuTiemChung[j].yearT > 2024 || lichSuTiemChung[j].yearT < infor_cn[i].year)
-		                            {
-			                            printf("khong hop le, nhap lai ngay thang nam!! \n");
-		                            }
-		                            else temp =1;
-		
-	                                }while(temp==0);
+    					infor_cn = (caNhan*)malloc(numOfBn * sizeof(caNhan)); // Cấp phát động thông tin cá nhân
+    					infor_yt = (yTe*)malloc(numOfBn * sizeof(yTe)); // Cấp phát động thông tin y tế
+    					infor_ltc = (lichTiemChung*)malloc(numOfBn * sizeof(lichTiemChung)); // Cấp phát động thông tin lịch tiêm
+						// Nhập thông tin cá nhân và y tế
+						printf("**THONG TIN CA NHAN CUA BENH NHAN**\n");
+    					dtCaNhan(infor_cn, infor_yt, numOfBn);
 
-                
-                                printf("  Dia diem tiem: ");
-                                fgets(lichSuTiemChung[j].DDT,99,stdin);
-                                strtok(lichSuTiemChung[j].DDT,"\n");
-                            }
-            
-                        }
-                        else    printf("Benh nhan %d khong co lich su tiem chung !",i+1);
+    					for (int i = 0; i < numOfBn; i++) 
+    					{
+        					if (infor_yt[i].tienTiemChung == 1)
+        					{
+            					printf("\n**THONG TIN LICH SU TIEM CHUNG** :\n");
+            					printf(" \nBenh nhan %d\n",i+1);
+            					printf(" So luong vaccine da tiem: ");
+            					scanf("%d", &numOfVaccine[i]); // Số lượng vaccine của object i+1
+            					clear();
+
+            					for (int j = 0; j < numOfVaccine[i]; j++)
+            					{
+                					int temp = 0;
+                					printf("\n Vaccine thu %d\n", j + 1);
+                					printf("  Ten vaccine la: ");
+                					fgets(lichSuTiemChung[j].nameOfVaccine, 99, stdin);
+                					strtok(lichSuTiemChung[j].nameOfVaccine, "\n");
+
+                					do {
+                    					printf("  Thoi gian tiem (dd/mm/yyyy): ");
+                    					scanf("%d/%d/%d", &lichSuTiemChung[j].dayT, &lichSuTiemChung[j].monthT, &lichSuTiemChung[j].yearT);
+                    					clear();
+                    					if (0 >= lichSuTiemChung[j].dayT || 31 < lichSuTiemChung[j].dayT || lichSuTiemChung[j].monthT <= 0 || lichSuTiemChung[j].monthT > 12 || lichSuTiemChung[j].yearT > 2024 || lichSuTiemChung[j].yearT < infor_cn[i].year)
+                    					{
+                        					printf("Khong hop le, nhap lai ngay thang nam!! \n");
+                    					}
+                    					else temp = 1;
+
+                					} while (temp == 0);
+
+                					printf("  Dia diem tiem: ");
+                					fgets(lichSuTiemChung[j].DDT, 99, stdin);
+                					strtok(lichSuTiemChung[j].DDT, "\n");
+            					}
+        					}
+        					else printf("Benh nhan %d khong co lich su tiem chung !", i + 1);
+    					}
+
+    					// Nhập thông tin lịch tiêm chủng
+    					dtLichTiemChung(infor_ltc, numOfBn);
+
+    					int choice;
+    					while (1) {
+        					printf("\nMenu\n");
+        					printf("1. Hien thi thong tin benh nhan\n");
+        					printf("2. Tra cuu thong tin benh nhan\n");
+        					printf("3. Them benh nhan moi\n");
+        					printf("4. Xoa thong tin benh nhan\n");
+        					printf("5. Thoat\n");
+        					printf("Chon mot chuc nang: ");
+        					scanf("%d", &choice);
+        					clear();
+
+        					switch (choice) {
+            				case 1:
+            					printf("\n**DUOI DAY LA THONG TIN BENH NHAN**\n");
+                				displayCaNhan(infor_cn, infor_yt, lichSuTiemChung, infor_ltc, numOfBn, numOfVaccine);
+                				break;
+            				case 2:
+            					printf("\n**TRA CUU THONG TIN BENH NHAN**\n");
+                				if_bn(infor_cn, infor_yt, lichSuTiemChung, infor_ltc, numOfBn, numOfVaccine);
+                				break;
+            				case 3:
+            					printf("\n**THEM BENH NHAN MOI**\n");
+                				addPatient(infor_cn, infor_yt, lichSuTiemChung, infor_ltc, &numOfBn, numOfVaccine);
+                				break;
+            				case 4:
+            					printf("\n**XOA THONG TIN BENH NHAN**\n");
+                				deletePatient(infor_cn, infor_yt, lichSuTiemChung, infor_ltc, &numOfBn, numOfVaccine);
+                				break;
+            				case 5:
+            					printf("************************THOAT HE THONG************************\n");
+                				free(infor_cn);
+                				free(infor_yt);
+                				free(infor_ltc);
+                				exit(0);
+            				default:
+                			printf("Chon sai, vui long chon lai!\n");
+        					}
+    					}
+						break;
                     }
-
-                    dtLichTiemChung(infor_ltc,numOfBn);   // entry data of lich tiem chung 
-
-                    printf("\nHien thi thong tin da nhap cua cac benh nhan!\n");
-                    displayCaNhan(infor_cn,infor_yt,lichSuTiemChung,infor_ltc,numOfBn,numOfVaccine);
-                    free(infor_cn);
-                    free(infor_yt);
-                    free(infor_ltc);
-                    break;
-				}
                 case 2:
                 {
                     printf("\nBan la: ");
@@ -301,6 +349,8 @@ int main() // ham main
                             {
                                 case 1:
                                 {
+                                    
+
                                     printf("Tong so loai vaccine muon nhap kho: ");
                                     scanf("%d", &p);
                                     Vaccine1 = (inforNX *)realloc(Vaccine1, (numVC + p) * sizeof(inforNX));
@@ -309,13 +359,13 @@ int main() // ham main
                                         printf("Nhap thong tin loai vaccine thu %d: ", numVC + 1);
                                         inputVC(&Vaccine1[numVC]);
                                         numVC++; 
-                                        printf("\nThong tin cac vac xin da nhap ");
                                         printf("\n");
                                     }
                                     break;
                                 }
                                 case 2:
                                 {
+                                    printf("\nThong tin cac vac xin da nhap: ");
                                     for(int i = 0; i < numVC; i++)
                                     {
                                         printf("\nVac xin thu %d: ", i + 1);
@@ -540,169 +590,236 @@ void deleteVC(inforNX *vc, int *n, char *tenVC)
 }
 
 /* PHAN BENH NHAN */
-// dinh nghia data nhap thong tin ca nhan
-void dtCaNhan(caNhan* infor_cn, yTe*infor_yt , int numOfBn)
+// Định nghĩa hàm nhập thông tin cá nhân
+void dtCaNhan(caNhan* infor_cn, yTe* infor_yt, int numOfBn)
 {
-    for(int i=0; i < numOfBn; i++)
+    for (int i = 0; i < numOfBn; i++)
     {
-        int temp=0;
-        printf("Benh nhan %d", i + 1 );
+        int temp = 0;
+        printf("Benh nhan %d\n", i + 1);
 
-        printf("\n Tai khoan: ");
+        printf(" Tai khoan: ");
         fgets(infor_cn[i].tk, 99, stdin);
-        strtok(infor_cn[i].tk, "\n"); // Loai bo ky tu xuong dong
+        strtok(infor_cn[i].tk, "\n");
+
         printf(" Mat khau: ");
         fgets(infor_cn[i].mk, 99, stdin);
-        strtok(infor_cn[i].mk, "\n"); // Loai bo ky tu xuong dong
-        
+        strtok(infor_cn[i].mk, "\n");
+
         printf(" Ten benh nhan: ");
         fgets(infor_cn[i].name, 99, stdin);
-        strtok(infor_cn[i].name, "\n"); // Loai bo ky tu xuong dong
-        
-        do{  // check infor 
-		
-		    printf(" Ngay thang nam sinh (dd/mm/yyyy): ");
-		    scanf("%d/%d/%d", &infor_cn[i].day, &infor_cn[i].month, &infor_cn[i].year);
-            clear(); // Xoa bo nho dem sau khi nhap ngay thang nam sinh
-		    if( 0>=infor_cn[i].day || 31<infor_cn[i].day || infor_cn[i].month<=0 || infor_cn[i].month >12 || infor_cn[i].year > 2024 )
-		    {
-			    printf("khong hop le, nhap lai ngay thang nam!! \n");
-		    }
-		    else temp =1;
-		
-	    }while(temp==0);
-        
-        
+        strtok(infor_cn[i].name, "\n");
+
+        do {
+            printf(" Ngay thang nam sinh (dd/mm/yyyy): ");
+            scanf("%d/%d/%d", &infor_cn[i].day, &infor_cn[i].month, &infor_cn[i].year);
+            clear();
+            if (0 >= infor_cn[i].day || 31 < infor_cn[i].day || infor_cn[i].month <= 0 || infor_cn[i].month > 12 || infor_cn[i].year > 2024)
+            {
+                printf("Khong hop le, nhap lai ngay thang nam!! \n");
+            }
+            else temp = 1;
+
+        } while (temp == 0);
+
         printf(" Gioi tinh: ");
         fgets(infor_cn[i].sex, 99, stdin);
-        strtok(infor_cn[i].sex, "\n"); // Loai bo ky tu xuong dong
-        
-        printf(" Dia chi thuong chu: ");
-        fgets(infor_cn[i].address, 99, stdin);
-        strtok(infor_cn[i].address, "\n"); // Loai bo ky tu xuong dong
-        
-        printf(" Nhap ID cho benh nhan:  ");
-        scanf("%d",&infor_cn[i].ID);
-        clear();
-        
-        printf(" So dien thoai ca nhan: ");
-        fgets(infor_cn[i].numPhone, 99, stdin);
-        strtok(infor_cn[i].numPhone, "\n"); // Loai bo ky tu xuong dong
+        strtok(infor_cn[i].sex, "\n");
 
-        printf(" Tien su benh ly: ");
-        fgets(infor_yt[i].tienBenhLy,99,stdin);
-        strtok(infor_yt[i].tienBenhLy, "\n"); // Loai bo ky tu xuong dong
-        
-        printf(" Tien su tiem chung \n Neu co, nhan phim (1) \n Neu khong, nhan phim (2)\n Lua chon: ");
-        scanf("%d",&infor_yt[i].tienTiemChung);
+        printf(" Dia chi thuong tru: ");
+        fgets(infor_cn[i].address, 99, stdin);
+        strtok(infor_cn[i].address, "\n");
+
+        infor_cn[i].ID = tangDem();
+        printf(" ID benh nhan: %d\n", infor_cn[i].ID);
+
+        printf(" So dien thoai: ");
+        fgets(infor_cn[i].numPhone, 99, stdin);
+        strtok(infor_cn[i].numPhone, "\n");
+
+        printf(" Tien su benh ly cua benh nhan: ");
+        fgets(infor_yt[i].tienBenhLy, 99, stdin);
+        strtok(infor_yt[i].tienBenhLy, "\n");
+
+        printf(" Da tiem chung hay chua? (0 -> Chua; 1 -> Da): ");
+        scanf("%d", &infor_yt[i].tienTiemChung);
         clear();
     }
 }
 
-
-// nhap thong tin cho lich tiem chung
+// Định nghĩa hàm nhập thông tin lịch tiêm chủng
 void dtLichTiemChung(lichTiemChung* infor_ltc, int numOfBn)
 {
-    for(int i =0 ; i< numOfBn ; i++)
+	printf("\n");
+    for (int i = 0; i < numOfBn; i++)
     {
-        printf("\nLen lich tiem chung cho benh nhan %d:\n",i+1);
-        printf(" Lich tiem chung du kien: ");
-        fgets(infor_ltc[i].duKien,999,stdin);
+    	printf("\n**BENH NHAN %d**",i+1);
+        printf("\n Lich tiem chung du kien: ");
+        fgets(infor_ltc[i].duKien, 999, stdin);
         strtok(infor_ltc[i].duKien, "\n");
 
-        printf(" Nhung dieu can luu y: ");
-        fgets(infor_ltc[i].nhacNho,999,stdin);
-        strtok(infor_ltc[i].duKien, "\n");
+        printf(" Nhac nho ve mui tiem: ");
+        fgets(infor_ltc[i].nhacNho, 999, stdin);
+        strtok(infor_ltc[i].nhacNho, "\n");
     }
 }
 
-
-// Ham hien thi thong tin benh nhan sau nhap
-void displayCaNhan(caNhan* infor_cn,yTe* infor_yt,LichSuTiemChung* lichSuTiemChung,lichTiemChung* infor_ltc ,int numOfBn,int* numOfVaccine)
+// Định nghĩa hàm hiển thị thông tin cá nhân
+void displayCaNhan(caNhan* infor_cn, yTe* infor_yt, LichSuTiemChung* lichSuTiemChung, lichTiemChung* infor_ltc, int numOfBn, int* numOfVaccine)
 {
-    for (int i = 0; i < numOfBn; i++) {
-        printf("ID ca nhan cua benh nhan: %d",infor_cn[i].ID);
-        printf("\nThong tin benh nhan %d:\n", i + 1);
-        printf(" Tai khoan: %s\n", infor_cn[i].tk);
-        printf(" Mat khau: %s\n", infor_cn[i].mk);
-        printf(" Ho va ten: %s\n", infor_cn[i].name);
-        printf(" Ngay sinh: %d/%d/%d\n", infor_cn[i].day, infor_cn[i].month, infor_cn[i].year);
-        printf(" Gioi tinh: %s\n", infor_cn[i].sex);
-        printf(" Dia chi: %s\n", infor_cn[i].address);
-        printf(" So dien thoai: %s\n", infor_cn[i].numPhone);
-        printf(" Tien su benh ly: %s\n", infor_yt[i].tienBenhLy);
-
-        if (infor_yt[i].tienTiemChung == 1) {
-            printf("Lich su tiem chung:\n");
-            for (int j = 0; j < numOfVaccine[i]; j++) {
-                printf("  Vaccine thu %d:\n", j + 1);
+    for (int i = 0; i < numOfBn; i++)
+    {
+        printf("\n Benh nhan %d \n", i + 1);
+        printf(" Tai khoan: %s \n", infor_cn[i].tk);
+        printf(" Mat khau: %s \n", infor_cn[i].mk);
+        printf(" Ten benh nhan: %s \n", infor_cn[i].name);
+        printf(" Ngay thang nam sinh: %d/%d/%d \n", infor_cn[i].day, infor_cn[i].month, infor_cn[i].year);
+        printf(" Gioi tinh: %s \n", infor_cn[i].sex);
+        printf(" Dia chi thuong tru: %s \n", infor_cn[i].address);
+        printf(" ID: %d \n", infor_cn[i].ID);
+        printf(" So dien thoai: %s \n", infor_cn[i].numPhone);
+        printf(" Tien su benh ly cua benh nhan: %s \n", infor_yt[i].tienBenhLy);
+        if (infor_yt[i].tienTiemChung == 1)
+        {
+            printf("  Danh sach cac loai vaccine da tiem:\n");
+            for (int j = 0; j < numOfVaccine[i]; j++)
+            {
+                printf("   Vaccine thu %d:\n", j + 1);
                 printf("    Ten vaccine: %s\n", lichSuTiemChung[j].nameOfVaccine);
                 printf("    Thoi gian tiem: %d/%d/%d\n", lichSuTiemChung[j].dayT, lichSuTiemChung[j].monthT, lichSuTiemChung[j].yearT);
                 printf("    Dia diem tiem: %s\n", lichSuTiemChung[j].DDT);
             }
-        } else {
-            printf("Khong co lich su tiem chung.\n");
         }
-
+        else
+        {
+            printf("Benh nhan chua co lich su tiem chung.\n");
+        }
         printf("Lich tiem chung du kien: %s\n", infor_ltc[i].duKien);
-        printf("Nhac nho tiem chung: %s\n", infor_ltc[i].nhacNho);
+        printf("Nhac nho muoi tiem: %s\n", infor_ltc[i].nhacNho);
     }
-    
 }
 
-// dinh nghia ham kiem tra thong tin benh nhan
-void if_bn(caNhan* infor_cn,yTe* infor_yt,LichSuTiemChung* lichSuTiemChung,lichTiemChung* infor_ltc ,int numOfBn,int* numOfVaccine)
+// Định nghĩa hàm tra cứu thông tin bệnh nhân
+void if_bn(caNhan* infor_cn, yTe* infor_yt, LichSuTiemChung* lichSuTiemChung, lichTiemChung* infor_ltc, int numOfBn, int* numOfVaccine)
 {
-    int n;
-    do {
-        printf("Nhap ID benh nhan ban muon kiem tra: ");
-        scanf("%d", &n);
-
-        int found = 0; // Flag to indicate if patient is found
-
-        for (int i = 0; i < numOfBn; i++) {
-            if (n == infor_cn[i].ID) {
-                found = 1;
-                printf("ID benh nhan %d", infor_cn[i].ID);
-                printf("\nThong tin benh nhan %d:\n", i + 1);
-                printf(" Tai khoan: %s\n", infor_cn[i].tk);
-                printf(" Mat khau: %s\n", infor_cn[i].mk);
-                printf(" Ho va ten: %s\n", infor_cn[i].name);
-                printf(" Ngay sinh: %d/%d/%d\n", infor_cn[i].day, infor_cn[i].month, infor_cn[i].year);
-                printf(" Gioi tinh: %s\n", infor_cn[i].sex);
-                printf(" Dia chi: %s\n", infor_cn[i].address);
-                printf(" So dien thoai: %s\n", infor_cn[i].numPhone);
-                printf(" Tien su benh ly: %s\n", infor_yt[i].tienBenhLy);
-
-                if (infor_yt[i].tienTiemChung == 1) {
-                    printf("Lich su tiem chung:\n");
-                    for (int j = 0; j < numOfVaccine[i]; j++) {
-                        printf("  Vaccine thu %d:\n", j + 1);
-                        printf("    Ten vaccine: %s\n", lichSuTiemChung[j].nameOfVaccine);
-                        printf("    Thoi gian tiem: %d/%d/%d\n", lichSuTiemChung[j].dayT, lichSuTiemChung[j].monthT, lichSuTiemChung[j].yearT);
-                        printf("    Dia diem tiem: %s\n", lichSuTiemChung[j].DDT);
-                    }
-                } else {
-                    printf(" Khong co lich su tiem chung.\n");
+    int id;
+    printf("Nhap ID benh nhan can tra cuu: ");
+    scanf("%d", &id);
+    clear();
+    for (int i = 0; i < numOfBn; i++)
+    {
+        if (infor_cn[i].ID == id)
+        {
+            printf("\n *****************************************\nThong tin benh nhan %d\n", i + 1);
+            printf(" Tai khoan: %s \n", infor_cn[i].tk);
+            printf(" Mat khau: %s \n", infor_cn[i].mk);
+            printf(" Ten benh nhan: %s \n", infor_cn[i].name);
+            printf(" Ngay thang nam sinh: %d/%d/%d \n", infor_cn[i].day, infor_cn[i].month, infor_cn[i].year);
+            printf(" Gioi tinh: %s \n", infor_cn[i].sex);
+            printf(" Dia chi thuong tru: %s \n", infor_cn[i].address);
+            printf(" ID: %d \n", infor_cn[i].ID);
+            printf(" So dien thoai: %s \n", infor_cn[i].numPhone);
+            printf(" Tien su benh ly cua benh nhan: %s \n", infor_yt[i].tienBenhLy);
+            if (infor_yt[i].tienTiemChung == 1)
+            {
+                printf("  Danh sach cac loai vaccine da tiem:\n");
+                for (int j = 0; j < numOfVaccine[i]; j++)
+                {
+                    printf("   Vaccine thu %d:\n", j + 1);
+                    printf("    Ten vaccine: %s\n", lichSuTiemChung[j].nameOfVaccine);
+                    printf("    Thoi gian tiem: %d/%d/%d\n", lichSuTiemChung[j].dayT, lichSuTiemChung[j].monthT, lichSuTiemChung[j].yearT);
+                    printf("    Dia diem tiem: %s\n", lichSuTiemChung[j].DDT);
                 }
-
-                printf(" Lich tiem chung du kien: %s\n", infor_ltc[i].duKien);
-                printf(" Nhac nho tiem chung: %s\n", infor_ltc[i].nhacNho);
-                break; // Exit loop once patient is found
             }
+            else
+            {
+                printf("Benh nhan chua co lich su tiem chung.\n");
+            }
+            printf("Lich tiem chung du kien: %s\n", infor_ltc[i].duKien);
+            printf("Nhac nho muoi tiem: %s\n", infor_ltc[i].nhacNho);
+            return;
         }
-
-        if (!found) {
-            printf(" Khong tim thay benh nhan voi ID %d.\n", n);
-        }
-
-        printf(" Ban co muon kiem tra benh nhan khac khong? (1: Co, 0: Khong): ");
-        scanf("%d", &n);
-
-    } while (n == 1);
+    }
+    printf("Khong tim thay benh nhan voi ID %d.\n", id);
 }
 
-/* PHAN NHAN VIEN Y TE */
+// Định nghĩa hàm xóa thông tin bệnh nhân
+void deletePatient(caNhan* infor_cn, yTe* infor_yt, LichSuTiemChung* lichSuTiemChung, lichTiemChung* infor_ltc, int* numOfBn, int* numOfVaccine)
+{
+    int id;
+    printf("Nhap ID benh nhan can xoa: ");
+    scanf("%d", &id);
+    clear();
+    for (int i = 0; i < *numOfBn; i++)
+    {
+        if (infor_cn[i].ID == id)
+        {
+            for (int j = i; j < *numOfBn - 1; j++)
+            {
+                infor_cn[j] = infor_cn[j + 1];
+                infor_yt[j] = infor_yt[j + 1];
+                infor_ltc[j] = infor_ltc[j + 1];
+                numOfVaccine[j] = numOfVaccine[j + 1];
+            }
+            (*numOfBn)--;
+            printf("Da xoa benh nhan voi ID %d.\n", id);
+            return;
+        }
+    }
+    printf("Khong tim thay benh nhan voi ID %d.\n", id);
+}
+
+// Định nghĩa hàm thêm bệnh nhân mới
+void addPatient(caNhan* infor_cn, yTe* infor_yt, LichSuTiemChung* lichSuTiemChung, lichTiemChung* infor_ltc, int* numOfBn, int* numOfVaccine)
+{
+    int new_numOfBn = *numOfBn + 1;
+    infor_cn = (caNhan*)realloc(infor_cn, new_numOfBn * sizeof(caNhan));
+    infor_yt = (yTe*)realloc(infor_yt, new_numOfBn * sizeof(yTe));
+    infor_ltc = (lichTiemChung*)realloc(infor_ltc, new_numOfBn * sizeof(lichTiemChung));
+
+    dtCaNhan(&infor_cn[*numOfBn], &infor_yt[*numOfBn], 1);
+
+    if (infor_yt[*numOfBn].tienTiemChung == 1)
+    {
+        printf("\nThong tin lich su tiem chung cua benh nhan %d :\n", *numOfBn + 1);
+        printf(" So luong vaccine da tiem: ");
+        scanf("%d", &numOfVaccine[*numOfBn]); // Số lượng vaccine của object i+1
+        clear();
+
+        for (int j = 0; j < numOfVaccine[*numOfBn]; j++)
+        {
+            int temp = 0;
+            printf("\n Vaccine thu %d\n", j + 1);
+            printf("  Ten vaccine la: ");
+            fgets(lichSuTiemChung[j].nameOfVaccine, 99, stdin);
+            strtok(lichSuTiemChung[j].nameOfVaccine, "\n");
+
+            do {
+                printf("  Thoi gian tiem (dd/mm/yyyy): ");
+                scanf("%d/%d/%d", &lichSuTiemChung[j].dayT, &lichSuTiemChung[j].monthT, &lichSuTiemChung[j].yearT);
+                clear();
+                if (0 >= lichSuTiemChung[j].dayT || 31 < lichSuTiemChung[j].dayT || lichSuTiemChung[j].monthT <= 0 || lichSuTiemChung[j].monthT > 12 || lichSuTiemChung[j].yearT > 2024 || lichSuTiemChung[j].yearT < infor_cn[*numOfBn].year)
+                {
+                    printf("Khong hop le, nhap lai ngay thang nam!! \n");
+                }
+                else temp = 1;
+
+            } while (temp == 0);
+
+            printf("  Dia diem tiem: ");
+            fgets(lichSuTiemChung[j].DDT, 99, stdin);
+            strtok(lichSuTiemChung[j].DDT, "\n");
+        }
+    }
+    else printf("Benh nhan %d khong co lich su tiem chung !", *numOfBn + 1);
+
+    dtLichTiemChung(&infor_ltc[*numOfBn], 1);
+
+    *numOfBn = new_numOfBn;
+}
+
+
+/* PHAN VACCINE CUA NHAN VIEN Y TE */
 int validDate(Date date)
 {
     if(date.year < 2024) // Kiem tra nam
