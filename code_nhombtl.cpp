@@ -201,56 +201,52 @@ int main() // ham main
     /* MENU HANH DONG VA CAC CHUC NANG */
 
     /* DANG NHAP */
-    printf("Ban la benh nhan hay nhan vien?");
-    printf("\n1. Nhan vien");
-    printf("\n2. Benh nhan");
+    printf("Chao mung den voi he thong thong tin tiem chung");
+    printf("\nVui long dang nhap");
     printf("\n");
-    scanf("%d",&a);
+    TEST1:
+    printf("\nTen tai khoan: "); scanf("%s", nameacc);
     fflush(stdin);
-    if (a == 1)
+    printf("Mat khau: "); scanf("%s", password);
+    if ((strcmp(nameacc, "baitaplon") == 0 && strcmp(password, "baitaplon") == 0))
     {
-        TEST1:
-        printf("\nTen tai khoan: "); scanf("%s", nameacc);
-        fflush(stdin);
-        printf("Mat khau: "); scanf("%s", password);
-        if ((strcmp(nameacc, "baitaplon") == 0 && strcmp(password, "baitaplon") == 0))
+        if(1)
         {
-            if(1)
+            printf("\nDua ra lua chon cua ban: ");
+            printf("\n1. Lien quan den benh nhan");
+            printf("\n2. Lien quan den vac xin");
+            printf("\n3. Thoat chuong trinh");
+            printf("\nVui long nhap lua chon cua ban: ");
+            scanf("%d", &option1);
+
+            switch(option1)
             {
-                printf("\nDua ra lua chon cua ban: ");
-                printf("\n1. Lien quan den benh nhan");
-                printf("\n2. Lien quan den vac xin");
-                printf("\nVui long nhap lua chon cua ban: ");
-                scanf("%d", &option1);
-
-                switch(option1)
+                case 1:
                 {
-                    case 1:
+                    printf("Nhap so luong benh nhan: ");
+                    scanf("%d",&numOfBn);
+                    clear(); // Xóa bộ đệm sau khi nhập số lượng bệnh nhân
+
+                    // funcion thuc thi nhiem vu
+                    dtCaNhan(infor_cn,infor_yt,numOfBn);  // entry data of patient
+
+                    for(int i=0; i<numOfBn; i++)  // note: chuyển ra hàm
                     {
-                    	printf("Nhap so luong benh nhan: ");
-                        scanf("%d",&numOfBn);
-                        clear(); // Xóa bộ đệm sau khi nhập số lượng bệnh nhân
-
-                        // funcion thuc thi nhiem vu
-                        dtCaNhan(infor_cn,infor_yt,numOfBn);  // entry data of patient
-
-                        for(int i=0; i<numOfBn; i++)  // note: chuyển ra hàm
+                        if(infor_yt[i].tienTiemChung==1)
                         {
-                            if(infor_yt[i].tienTiemChung==1)
+                            printf("\nThong tin lich su tiem chung cua benh nhan %d :\n",i+1);
+                            printf(" So luong vaccine da tiem: ");
+                            scanf("%d",&numOfVaccine[i]);  // so luong vaccine cua object i+1
+                            clear();
+                            for(int j=0; j<numOfVaccine[i] ; j++)
                             {
-                                printf("\nThong tin lich su tiem chung cua benh nhan %d :\n",i+1);
-                                printf(" So luong vaccine da tiem: ");
-                                scanf("%d",&numOfVaccine[i]);  // so luong vaccine cua object i+1
-                                clear();
-                                for(int j=0; j<numOfVaccine[i] ; j++)
-                                {
-                                    int temp=0;
-                                    printf("\n Vaccien thu %d\n",j+1);
-                                    printf("  Ten vaccine la: ");
-                                    fgets(lichSuTiemChung[j].nameOfVaccine,99,stdin);
-                                    strtok(lichSuTiemChung[j].nameOfVaccine, "\n");
+                                int temp=0;
+                                printf("\n Vaccien thu %d\n",j+1);
+                                printf("  Ten vaccine la: ");
+                                fgets(lichSuTiemChung[j].nameOfVaccine,99,stdin);
+                                strtok(lichSuTiemChung[j].nameOfVaccine, "\n");
 
-                                    do{		
+                                do{		
 		                            printf("  Thoi gian tiem (dd/mm/yyyy): ");
                                     scanf("%d/%d/%d",&lichSuTiemChung[j].dayT,&lichSuTiemChung[j].monthT,&lichSuTiemChung[j].yearT);
                                     clear();
@@ -263,176 +259,174 @@ int main() // ham main
 	                                }while(temp==0);
 
                 
-                                    printf("  Dia diem tiem: ");
-                                    fgets(lichSuTiemChung[j].DDT,99,stdin);
-                                    strtok(lichSuTiemChung[j].DDT,"\n");
-                                }
-            
+                                printf("  Dia diem tiem: ");
+                                fgets(lichSuTiemChung[j].DDT,99,stdin);
+                                strtok(lichSuTiemChung[j].DDT,"\n");
                             }
-                            else    printf("Benh nhan %d khong co lich su tiem chung !",i+1);
+            
                         }
+                        else    printf("Benh nhan %d khong co lich su tiem chung !",i+1);
+                    }
 
-                        dtLichTiemChung(infor_ltc,numOfBn);   // entry data of lich tiem chung 
+                    dtLichTiemChung(infor_ltc,numOfBn);   // entry data of lich tiem chung 
 
-                        printf("\nHien thi thong tin da nhap cua cac benh nhan!\n");
-                        displayCaNhan(infor_cn,infor_yt,lichSuTiemChung,infor_ltc,numOfBn,numOfVaccine);
-                        free(infor_cn);
-                        free(infor_yt);
-                        free(infor_ltc);
-                        break;
-					}
-                    case 2:
+                    printf("\nHien thi thong tin da nhap cua cac benh nhan!\n");
+                    displayCaNhan(infor_cn,infor_yt,lichSuTiemChung,infor_ltc,numOfBn,numOfVaccine);
+                    free(infor_cn);
+                    free(infor_yt);
+                    free(infor_ltc);
+                    break;
+				}
+                case 2:
+                {
+                    printf("\nBan la: ");
+                    printf("\n1. Nhan vien nhap kho vac xin");
+                    printf("\n2. Nhan vien y te");
+                    printf("\nVui long nhap lua chon cua ban");
+                    scanf("%d", &option2);
+
+                    switch(option2)
                     {
-                        printf("\nBan la: ");
-                        printf("\n1. Nhan vien nhap kho vac xin");
-                        printf("\n2. Nhan vien y te");
-                        printf("\nVui long nhap lua chon cua ban");
-                        scanf("%d", &option2);
-
-                        switch(option2)
+                        case 1:
                         {
-                            case 1:
-                            {
-                                printf("\nBan muon lam gi?");
-                                printf("\n1. Nhap thong tin vaccine");
-                                printf("\n2. Hien thi thong tin vaccine");
-                                printf("\n3. Xoa thong tin vaccine");
-                                printf("\n4. Thoat");
-                                printf("\nVui long nhap lua chon cua ban: ");
-                                scanf("%d", &option3); 
+                            printf("\nBan muon lam gi?");
+                            printf("\n1. Nhap thong tin vaccine");
+                            printf("\n2. Hien thi thong tin vaccine");
+                            printf("\n3. Xoa thong tin vaccine");
+                            printf("\n4. Thoat");
+                            printf("\nVui long nhap lua chon cua ban: ");
+                            scanf("%d", &option3); 
 
-                                switch(option3)
+                            switch(option3)
+                            {
+                                case 1:
+                                {
+                                    printf("Tong so loai vaccine muon nhap kho: ");
+                                    scanf("%d", &p);
+                                    Vaccine1 = (inforNX *)realloc(Vaccine1, (numVC + p) * sizeof(inforNX));
+                                    for(int i = 0; i < p; i++)
+                                    {
+                                        printf("Nhap thong tin loai vaccine thu %d: ", numVC + 1);
+                                        inputVC(&Vaccine1[numVC]);
+                                        numVC++; 
+                                        printf("\nThong tin cac vac xin da nhap ");
+                                        printf("\n");
+                                    }
+                                    break;
+                                }
+                                case 2:
+                                {
+                                    for(int i = 0; i < numVC; i++)
+                                    {
+                                        printf("\nVac xin thu %d: ", i + 1);
+                                        outputVC(Vaccine1[i]);
+                                        printf("\n");
+                                    }
+                                    break;
+                                    }
+                                case 3:
+                                {
+                                    char tenVC[20];
+                                    printf("\nNhap ten vaccine can xoa: ");
+                                    fflush(stdin);
+                                    gets(tenVC);
+                                    deleteVC(Vaccine1, &numVC, tenVC);
+                                    break;
+                                    }
+                                case 4:
+                                {
+                                    free(Vaccine1);
+                                    printf("Chuc ban mot ngay tot lanh.");
+                                    break;
+                                }
+                            }
+                        break;
+                        }
+                        case 2:
+                        {
+                            printf("Nhap so luong loai vaccine: ");
+                            scanf("%d", &numofVac);
+                            Vaccine *vaccine = (Vaccine *)malloc(numofVac*sizeof(Vaccine));
+                            for(int i = 0; i < numofVac; i ++)
+                            {
+                                printf("\nNhap thong loai vaccine thu %d: ", i + 1);
+                                inputVac(&vaccine[i]);
+                            }
+                            do
+                            {
+                                printf("\n1.Tim kiem vac xin qua ten (Nhap ban phim so 1)");
+                                printf("\n2.Sap xep vac xin theo so luong ton kho (Nhap ban phim so 2)");
+                                printf("\n3.Sap xep vac xin theo han su dung (Nhap ban phim so 3)");
+                                printf("\n4.Nhap thong tin them vac xin moi (Nhap ban phim so 4)");
+                                printf("\n5.Xoa 1 vac xin da nhap (Nhap ban phim so 5)");
+                                printf("\n6.Cap nhat thong tin 1 loai vac xin (Nhap ban phim so 6)"); 
+                                printf("\nHay lua chon hanh dong tiep theo cua ban: ");
+                                scanf("%d", &choice);
+                                switch(choice)
                                 {
                                     case 1:
-                                    {
-                                        printf("Tong so loai vaccine muon nhap kho: ");
-                                        scanf("%d", &p);
-                                        Vaccine1 = (inforNX *)realloc(Vaccine1, (numVC + p) * sizeof(inforNX));
-                                        for(int i = 0; i < p; i++)
-                                        {
-                                            printf("Nhap thong tin loai vaccine thu %d: ", numVC + 1);
-                                            inputVC(&Vaccine1[numVC]);
-                                            numVC++; 
-                                            printf("\nThong tin cac vac xin da nhap ");
-                                            printf("\n");
-                                        }
-                                        break;
-                                    }
-                                    case 2:
-                                    {
-                                        for(int i = 0; i < numVC; i++)
-                                        {
-                                            printf("\nVac xin thu %d: ", i + 1);
-                                            outputVC(Vaccine1[i]);
-                                            printf("\n");
-                                        }
-                                        break;
-                                    }
-                                    case 3:
-                                    {
-                                        char tenVC[20];
-                                        printf("\nNhap ten vaccine can xoa: ");
+                                        printf("\nNhap ten loai vac xin muon tim kiem: ");
                                         fflush(stdin);
-                                        gets(tenVC);
-                                        deleteVC(Vaccine1, &numVC, tenVC);
+                                        fgets(vacSearch, sizeof(vacSearch), stdin);
+                                        vacSearch[strlen(vacSearch) - 1] = '\0';
+                                        searchVac(vaccine, numofVac, vacSearch);
                                         break;
-                                    }
+                                    case 2:
+                                        printf("\nDanh sach vac xin sap xep theo so luong ton kho:");
+                                        sortInven(vaccine, numofVac);
+                                        break;
+                                    case 3:
+                                        printf("\nDanh sach vac xin sap xep theo han su dung: ");
+                                        searchExpiry(vaccine, numofVac);
+                                        break;
                                     case 4:
-                                    {
-                                        free(Vaccine1);
-                                        printf("Chuc ban mot ngay tot lanh.");
+                                        printf("\nNhap so luong vac xin them moi: ");
+                                        scanf("%d", &newAddvac);
+                                        addVac(&vaccine, &numofVac, newAddvac);
                                         break;
-                                    }
+                                    case 5:
+                                        printf("\nNhap so thu tu cua vac xin muon xoa: ");
+                                        scanf("%d", &index1);
+                                        deleteVac(&vaccine, &numofVac, index1);
+                                        break;
+                                    case 6:
+                                        printf("\nNhap so thu tu cua vac xin muon cap nhat: ");
+                                        scanf("%d", &index2);
+                                        printf("\nNhap thong tin muon cap nhat thanh:");
+                                        changeVac(&vaccine, index2, &updateVac);
+                                        break;
+                                    default:
+                                        printf("\nKhong hop le. Hay nhap mot so tu 1 den 6");
+                                        continue;
                                 }
-                            break;
-                            }
-                            case 2:
-                            {
-                                printf("Nhap so luong loai vaccine: ");
-                                scanf("%d", &numofVac);
-                                Vaccine *vaccine = (Vaccine *)malloc(numofVac*sizeof(Vaccine));
-                                for(int i = 0; i < numofVac; i ++)
-                                {
-                                    printf("\nNhap thong loai vaccine thu %d: ", i + 1);
-                                    inputVac(&vaccine[i]);
-                                }
-                                do
-                                {
-                                    printf("\n1.Tim kiem vac xin qua ten (Nhap ban phim so 1)");
-                                    printf("\n2.Sap xep vac xin theo so luong ton kho (Nhap ban phim so 2)");
-                                    printf("\n3.Sap xep vac xin theo han su dung (Nhap ban phim so 3)");
-                                    printf("\n4.Nhap thong tin them vac xin moi (Nhap ban phim so 4)");
-                                    printf("\n5.Xoa 1 vac xin da nhap (Nhap ban phim so 5)");
-                                    printf("\n6.Cap nhat thong tin 1 loai vac xin (Nhap ban phim so 6)"); 
-                                    printf("\nHay lua chon hanh dong tiep theo cua ban: ");
-                                    scanf("%d", &choice);
-                                    switch(choice)
-                                    {
-                                        case 1:
-                                            printf("\nNhap ten loai vac xin muon tim kiem: ");
-                                            fflush(stdin);
-                                            fgets(vacSearch, sizeof(vacSearch), stdin);
-                                            vacSearch[strlen(vacSearch) - 1] = '\0';
-                                            searchVac(vaccine, numofVac, vacSearch);
-                                            break;
-                                        case 2:
-                                            printf("\nDanh sach vac xin sap xep theo so luong ton kho:");
-                                            sortInven(vaccine, numofVac);
-                                            break;
-                                        case 3:
-                                            printf("\nDanh sach vac xin sap xep theo han su dung: ");
-                                            searchExpiry(vaccine, numofVac);
-                                            break;
-                                        case 4:
-                                            printf("\nNhap so luong vac xin them moi: ");
-                                            scanf("%d", &newAddvac);
-                                            addVac(&vaccine, &numofVac, newAddvac);
-                                            break;
-                                        case 5:
-                                            printf("\nNhap so thu tu cua vac xin muon xoa: ");
-                                            scanf("%d", &index1);
-                                            deleteVac(&vaccine, &numofVac, index1);
-                                            break;
-                                        case 6:
-                                            printf("\nNhap so thu tu cua vac xin muon cap nhat: ");
-                                            scanf("%d", &index2);
-                                            printf("\nNhap thong tin muon cap nhat thanh:");
-                                            changeVac(&vaccine, index2, &updateVac);
-                                            break;
-                                        default:
-                                            printf("\nKhong hop le. Hay nhap mot so tu 1 den 6");
-                                            continue;
-                                    }
-                                    printf("\nBan co muon tiep tuc khong? (Y/N): ");
-                                    fflush(stdin);
-                                    scanf("%c", &continueInput);
-                                } while (continueInput == 'y' || continueInput == 'Y');
-                                free(vaccine);
-                            break;
-                            }
-                            default:
-                                printf("\nKhong hop le. Vui long nhap lai");
-                                continue;
+                                printf("\nBan co muon tiep tuc khong? (Y/N): ");
+                                fflush(stdin);
+                                scanf("%c", &continueInput);
+                            } while (continueInput == 'y' || continueInput == 'Y');
+                            free(vaccine);
+                        break;
                         }
-                    break;
+                        default:
+                            printf("\nKhong hop le. Vui long nhap lai");
+                            continue;
                     }
-                    default:
-                        printf("\nKhong hop le. Vui long nhap lai");
-                        continue;
+                break;
                 }
+                case 3:
+                {
+                    return 0;
+                }
+                default:
+                    printf("\nKhong hop le. Vui long nhap lai");
+                    continue;
             }
         }
-        else
-        {
-            printf("\nTen tai khoan hoac mat khau ban vua nhap khong dung. Vui long ban nhap lai!");
-            goto TEST1;
-        }
     }
-    if(a == 2)
+    else
     {
-        if_bn(infor_cn,infor_yt,lichSuTiemChung,infor_ltc,numOfBn,numOfVaccine);
+        printf("\nTen tai khoan hoac mat khau ban vua nhap khong dung. Vui long ban nhap lai!");
+        goto TEST1;
     }
-    return 0;
 }
     
 /* DINH NGHIA CAC HAM DA SU DUNG */
