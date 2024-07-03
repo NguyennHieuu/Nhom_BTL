@@ -1,9 +1,9 @@
 /**
  * @file code_nhombtl.cpp
- * @author Nguyen Trung Hieu (Hieu.NT234009@sis.hust.edu.vn)
- *         Vu Hoang Hiep (@sis.hust.edu.vn)
- *         Bui Trung Hieu (@sis.hust.edu.vn)
- *         Tran Trung Hieu (@sis.hust.edu.vn)
+ * @author Nguyen Trung Hieu (20234009)
+ *         Vu Hoang Hiep (20234005)
+ *         Bui Trung Hieu (20234006)
+ *         Tran Trung Hieu (20234010)
  * @brief He thong quan ly tiem chung
  * @version 1.0
  * @date 2024-07-02
@@ -18,7 +18,7 @@
 
 /* KHAI BAO STRUCT */
 
-/* PHAN NHAN VIEN */
+/* PHAN NHAN VIEN NHAP KHO VAC XIN */
 typedef struct
 {
     char date[15];
@@ -75,7 +75,7 @@ typedef struct
     char nhacNho[1000]; // Nhac nho ve cac mui tiem sap den han
 }lichTiemChung;
 
-/* PHAN VACCINE */
+/* PHAN NHAN VIEN Y TE */
 /* Khai bao struct cho Date */
 typedef struct
 {
@@ -97,7 +97,7 @@ typedef struct
 
 /* KHAI BAO CAC HAM SE SU DUNG */
 
-/* PHAN NHAN VIEN */
+/* PHAN NHAN VIEN NHAP KHO VAC XIN */
 void inputBN(inforBN *bn);
 void outputBN(inforBN bn);
 void inputVC(inforNX *vc);
@@ -137,7 +137,7 @@ void displayCaNhan(caNhan*,yTe*,LichSuTiemChung*,lichTiemChung* ,int,int*);  // 
 
 void if_bn(caNhan*,yTe*,LichSuTiemChung*,lichTiemChung* ,int,int*);  // tra cuu thong tin benh nhan
 
-/* PHAN VACCINE */
+/* PHAN NHAN VIEN Y TE */
 // Ham kiem tra tinh hop le cua ngay thang nam nhap vao
 int validDate(Date date);
 
@@ -172,7 +172,7 @@ int main() // ham main
 {
     /* KHAI BAO BIEN SU DUNG TRONG HAM MAIN */
 
-    /* PHAN NHAN VIEN */
+    /* PHAN NHAN VIEN (CHUNG) & NHAN VIEN NHAP KHO VAC XIN */
     int option1, option2, option3, m, p, a;
     //char position[10];
     char nameacc[10];
@@ -190,7 +190,7 @@ int main() // ham main
     yTe* infor_yt;  // khai bao con tro kieu yTe
     lichTiemChung* infor_ltc;
 
-    /* PHAN VACCINE */
+    /* PHAN NHAN VIEN Y TE */
     int numofVac; // So luong loai vac xin
     char vacSearch[50]; // Ten loai vac xin tim kiem
     int choice; // bien phuc vu menu lua chon hanh dong
@@ -431,7 +431,7 @@ int main() // ham main
     
 /* DINH NGHIA CAC HAM DA SU DUNG */
 
-/* PHAN NHAN VIEN */
+/* PHAN NHAN VIEN NHAP KHO VAC XIN */
 void inputBN(inforBN *bn)
 {
     printf("\nNhap ma benh nhan: ");
@@ -702,7 +702,7 @@ void if_bn(caNhan* infor_cn,yTe* infor_yt,LichSuTiemChung* lichSuTiemChung,lichT
     } while (n == 1);
 }
 
-/* PHAN VACCINE */
+/* PHAN NHAN VIEN Y TE */
 int validDate(Date date)
 {
     if(date.year < 2024) // Kiem tra nam
